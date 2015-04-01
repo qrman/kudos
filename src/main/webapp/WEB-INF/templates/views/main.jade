@@ -1,0 +1,16 @@
+- attributes("title") = "Here goes my Angular Application!!!"
+
+h2 = "Are you ready for AngularJS?"
+
+div(ng-controller='KudosCtrl')
+    h4 = "Here angular comes: {{variable}}"
+
+    form(name="kudosForm" ng-submit="giveKudos()")
+        div
+            label = "Email:"
+            input(type="text" ng-model="kudos.recipient")
+        div
+            label = "Message:"
+            input(type="text" ng-model="kudos.message")
+        div
+            input(type="submit" value="Give Kudos")
