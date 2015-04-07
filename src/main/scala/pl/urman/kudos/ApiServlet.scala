@@ -8,19 +8,19 @@ import org.scalatra.json._
 class ApiServlet extends ScalatraServlet with JacksonJsonSupport {
   protected implicit val jsonFormats: Formats = DefaultFormats
 
+  val repo = new KudosRepo()
+  
   before() {
     contentType = formats("json")
   }
 
-  get("/kudos") {
-    val repo = new KudosRepo()
-    val k = repo.get()
-    k
+  get("/kudos/:user") {
+    val kudosList = repo.get(params("user"))
+    kudosList
   }
   
   post("/kudos") {
     val kudos = parsedBody.extract[Kudo];
-    val repo = new KudosRepo()
     repo.store(kudos);
   }
 }

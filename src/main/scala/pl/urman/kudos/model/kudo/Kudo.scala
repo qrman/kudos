@@ -1,3 +1,3 @@
 package pl.urman.kudos.model.kudo
 
-case class Kudo(email: String, message: String)
+case class Kudo(user: String, message: String)

@@ -10,7 +10,7 @@ object KudosBuild extends Build {
   val Name = "kudos"
   val Version = "0.1.0-SNAPSHOT"
   val ScalaVersion = "2.11.1"
-  val ScalatraVersion = "2.3.0"
+  val ScalatraVersion = "2.3.1"
 
   lazy val project = Project(
     "kudos",
@@ -25,6 +25,7 @@ object KudosBuild extends Build {
         "org.scalatra" %% "scalatra" % ScalatraVersion,
         "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
         "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
+        "org.scalatra" %% "scalatra-scalatest" % ScalatraVersion % "test",
         "org.scalatra" %% "scalatra-json" % ScalatraVersion,
         "org.json4s" %% "json4s-jackson" % "3.2.11",
         "ch.qos.logback" % "logback-classic" % "1.1.2" % "runtime",
@@ -44,7 +45,8 @@ object KudosBuild extends Build {
             Some("templates")
           )
         )
-      }
+      },
+      parallelExecution in Test := false
     )
   )
 }
