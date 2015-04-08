@@ -9,20 +9,17 @@ class KudosRepo {
 
   val logger = LoggerFactory.getLogger(getClass)
 
-  val userRepo = new UserRepo
   val redis = new RedisClient("localhost", 6379)
 
-  def store(kudo: Kudo): Unit = {
-    var userId = userRepo.getUser(kudo.user)
+  def store(kudoRecipientId: Long, kudo: Kudo): Unit = {
     val kudoId = redis.incr("kudo_id").get
-    val key = s"user_kudo:" + userId
+    val key = s"user_kudo:" + kudoRecipientId
 
     redis.lpush(key, kudoId)
-    redis.hmset(s"kudos:{$kudoId}", Map("from" -> kudo.user, "message" -> kudo.message))
+    redis.hmset(s"kudos:{$kudoId}", Map("from" -> kudo.from, "message" -> kudo.message))
   }
 
-  def get(user: String): List[Kudo] = {
-    val userId = userRepo.getUser(user)
+  def get(userId: Long): List[Kudo] = {
     redis.lrange(s"user_kudo:" + userId, 0, -1).get.map(
       kudoId => getOne(kudoId.get)
     )

@@ -12,14 +12,21 @@ class ApiServletSpec extends ScalatraSuite with FunSuiteLike with BeforeAndAfter
   val userRepo = new UserRepo
   addServlet(classOf[ApiServlet], "/api/*")
 
+
   before {
     RedisCleaner.clean
-    userRepo.addUser("bill")
   }
 
-  test("Add Kudos") {
-    post("/api/kudos", """{"user": "bill", "message": "You are awesome"}""".getBytes, Map("Content-Type" -> "application/json")) {
+  test("Add Kudos and craete a user") {
+
+    post("/api/kudos/johny", """{"from": "bill", "message": "You are awesome"}""".getBytes, Map("Content-Type" -> "application/json")) {
       status should equal(200)
+
+      get("/api/kudos/johny") {
+        status should be equals (200)
+        body should be( """[{"from":"bill","message":"You are awesome"}]""")
+      }
+
     }
   }
 }

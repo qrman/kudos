@@ -20,28 +20,25 @@ class KudosFlowTest extends ScalatraSuite with FunSuiteLike with BeforeAndAfter 
   }
 
   test("should register Users") {
-    userRepo.addUser("johny")
-    userRepo.getUser("johny") should equal("1001")
-
-    userRepo.addUser("frank")
-    userRepo.getUser("frank") should equal("1002")
-
+    userRepo.createOrGetUser("johny") should equal(1001)
+    userRepo.createOrGetUser("frank") should equal(1002)
+    userRepo.createOrGetUser("johny") should equal(1001)
   }
 
   test("User should have no Kudos at the beginning") {
-    userRepo.addUser("johny")
-    val kudos = kudosRepo.get("johny")
+    val userId = userRepo.createOrGetUser("johny")
+    val kudos = kudosRepo.get(userId)
     kudos should be(empty)
   }
 
   test("After adding Kudo user have it") {
     //given
-    userRepo.addUser("johny")
-    val kudo = new Kudo("johny", "My boy!")
-    kudosRepo.store(kudo)
+    val userId = userRepo.createOrGetUser("johny")
+    val kudo = new Kudo("bill", "My boy!")
+    kudosRepo.store(userId, kudo)
 
     //when
-    val kudos = kudosRepo.get("johny")
+    val kudos = kudosRepo.get(userId)
 
     //then
     kudos should contain(kudo)

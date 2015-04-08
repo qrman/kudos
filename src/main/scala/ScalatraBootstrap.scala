@@ -14,9 +14,9 @@ class ScalatraBootstrap extends LifeCycle {
     RedisCleaner.clean
 
     val userRepo = new UserRepo
-    userRepo.addUser("qrman")
+    val userId = userRepo.createOrGetUser("qrman")
     val kudosRepo = new KudosRepo
-    kudosRepo.store(new Kudo("qrman", "You are Awesome"))
-    kudosRepo.store(new Kudo("qrman", "My hero"))
+    kudosRepo.store(userId, new Kudo("Han Solo", "You are Awesome"))
+    kudosRepo.store(userId, new Kudo("chewbacca", "My hero"))
   }
 }
