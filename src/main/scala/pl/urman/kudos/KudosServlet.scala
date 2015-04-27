@@ -1,7 +1,6 @@
 package pl.urman.kudos
 
 import org.scalatra._
-import scalate.ScalateSupport
 
 class KudosServlet extends KudosStack {
 

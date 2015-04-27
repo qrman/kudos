@@ -27,6 +27,8 @@ object KudosBuild extends Build {
         "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
         "org.scalatra" %% "scalatra-scalatest" % ScalatraVersion % "test",
         "org.scalatra" %% "scalatra-json" % ScalatraVersion,
+        "com.softwaremill.macwire" %% "macros" % "1.0.1",
+        "com.softwaremill.macwire" %% "runtime" % "1.0.1",
         "org.json4s" %% "json4s-jackson" % "3.2.11",
         "ch.qos.logback" % "logback-classic" % "1.1.2" % "runtime",
         "org.eclipse.jetty" % "jetty-webapp" % "9.1.5.v20140505" % "container",

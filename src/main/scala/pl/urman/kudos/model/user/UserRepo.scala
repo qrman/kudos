@@ -3,10 +3,7 @@ package pl.urman.kudos.model.user
 import com.redis.RedisClient
 import com.redis.serialization.Parse.Implicits._
 
-class UserRepo {
-
-  val redis = new RedisClient("localhost", 6379)
-
+class UserRepo(redis: RedisClient) {
 
   def createOrGetUser(username: String): Long = {
     val userId = getUserId(username).getOrElse(

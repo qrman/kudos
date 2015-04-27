@@ -8,15 +8,12 @@ import pl.urman.kudos.infrastructure.RedisCleaner
 import pl.urman.kudos.model.kudo.{Kudo, KudosRepo}
 import pl.urman.kudos.model.user.UserRepo
 
-class KudosFlowTest extends ScalatraSuite with FunSuiteLike with BeforeAndAfter {
-
-  val userRepo = new UserRepo
-  val kudosRepo = new KudosRepo
+class KudosFlowTest(userRepo:UserRepo, kudosRepo:KudosRepo, redisCleaner: RedisCleaner) extends ScalatraSuite with FunSuiteLike with BeforeAndAfter {
 
   val logger = LoggerFactory.getLogger(getClass)
 
   before {
-    RedisCleaner.clean
+    redisCleaner.clean
   }
 
   test("should register Users") {
