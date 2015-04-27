@@ -4,13 +4,16 @@ import com.redis.RedisClient
 import org.scalatest.{BeforeAndAfter, FunSuiteLike}
 import org.scalatra.test.scalatest.ScalatraSuite
 import org.slf4j.LoggerFactory
-import pl.urman.kudos.infrastructure.RedisCleaner
+import pl.urman.kudos.infrastructure.{AppModule, RedisCleaner}
 import pl.urman.kudos.model.kudo.{Kudo, KudosRepo}
 import pl.urman.kudos.model.user.UserRepo
 
-class KudosFlowTest(userRepo:UserRepo, kudosRepo:KudosRepo, redisCleaner: RedisCleaner) extends ScalatraSuite with FunSuiteLike with BeforeAndAfter {
+class KudosFlowTest extends ScalatraSuite with FunSuiteLike with BeforeAndAfter {
 
-  val logger = LoggerFactory.getLogger(getClass)
+  val appModule = new AppModule {}
+  val userRepo = appModule.userRepo
+  val kudosRepo = appModule.kudosRepo
+  val redisCleaner = appModule.redisCleaner
 
   before {
     redisCleaner.clean

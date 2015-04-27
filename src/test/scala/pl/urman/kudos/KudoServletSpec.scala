@@ -1,15 +1,18 @@
 package pl.urman.kudos
 
-import com.redis.RedisClient
 import org.scalatra.test.scalatest._
 import org.scalatest.{BeforeAndAfter, FunSuiteLike}
 import pl.urman.kudos.infrastructure.{AppModule, RedisCleaner}
-import pl.urman.kudos.model.kudo.KudosRepo
-import pl.urman.kudos.model.user.UserRepo
 
-class ApiServletSpec(kudosRepo: KudosRepo, userRepo: UserRepo, redisCleaner: RedisCleaner) extends ScalatraSuite with FunSuiteLike with BeforeAndAfter {
+class KudoServletSpec extends ScalatraSuite with FunSuiteLike with BeforeAndAfter {
 
-  addServlet(new ApiServlet(kudosRepo, userRepo), "/api/*")
+  val appModule = new AppModule {}
+
+  implicit val kudosRepo = appModule.kudosRepo
+  implicit val userRepo = appModule.userRepo
+  implicit val redisCleaner = appModule.redisCleaner
+
+  addServlet(new KudoServlet(kudosRepo, userRepo), "/api/*")
 
 
   before {

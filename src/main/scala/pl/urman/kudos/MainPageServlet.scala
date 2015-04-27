@@ -2,7 +2,7 @@ package pl.urman.kudos
 
 import org.scalatra._
 
-class KudosServlet extends KudosStack {
+class MainPageServlet extends KudosStack {
 
   get("/") {
     <html>

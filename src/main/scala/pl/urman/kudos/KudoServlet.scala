@@ -7,7 +7,7 @@ import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.json._
 import pl.urman.kudos.model.user.UserRepo
 
-class ApiServlet(kudosRepo: KudosRepo, userRepo: UserRepo) extends ScalatraServlet with JacksonJsonSupport {
+class KudoServlet(kudosRepo: KudosRepo, userRepo: UserRepo) extends ScalatraServlet with JacksonJsonSupport {
   protected implicit val jsonFormats: Formats = DefaultFormats
 
   before() {
